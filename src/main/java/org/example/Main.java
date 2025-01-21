@@ -1,7 +1,9 @@
+
 package org.example;
 
+import org.example.dao.EventoDAO;
 import org.example.entities.Evento;
-import org.example.entities.tipoEvento;
+import org.example.enumeration.TipoEvento;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -12,29 +14,22 @@ import java.time.LocalDate;
  * Hello world!
  *
  */
-public class EventoDAO
-{
+public class Main {
+
     private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("progettoMavenPersistenza");
     private static EntityManager em = emf.createEntityManager();
 
-
     public static void main( String[] args ) {
+        EventoDAO eventoDao = new EventoDAO(em);
 
-        LocalDate data = LocalDate.parse("2025-04-09");
+        Evento ev = new Evento("Lezione Java", LocalDate.now(), "Corso FS0824B", TipoEvento.PRIVATO, 28);
+         eventoDao.save(ev);
 
-        Evento event = new Evento("Congresso",data,"Sarà un gran congresso", tipoEvento.pubblico,1000);
-        save(event);
+        Evento getEv = eventoDao.getByID(1);
+         System.out.println(getEv);
 
-        em.close();
-        emf.close();
+        // eventoDao.delete(getEv);
+
     }
-
-    public static void save(Evento event) {
-        em.getTransaction().begin();
-        em.persist(event);
-        em.getTransaction().commit();
-    }
-
-    public static void getById()
 
 }

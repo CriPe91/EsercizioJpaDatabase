@@ -1,44 +1,34 @@
 package org.example.entities;
 
-import java.time.LocalDate;
+import org.example.enumeration.TipoEvento;
+
 import javax.persistence.*;
+import java.time.LocalDate;
 
-    @Entity
-    @Table(name = "Evento")
+@Entity
+@Table(name = "eventi")
+public class Evento {
 
-    public class Evento {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    @Column(nullable = false)
+    private String titolo;
+    @Column(nullable = false)
+    private LocalDate dataEvento;
+    private String descrizione;
+    @Enumerated(EnumType.STRING)
+    private TipoEvento tipoEvento;
+    private int numeroMassimoPartecipanti;
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
+    public Evento() {}
 
-        @Column(name = "Titolo", nullable = false)
-        private String titolo;
-
-        @Column(nullable = false)
-        private LocalDate dataEvento;
-
-        @Column(name = "Descrizione")
-        private String descrizione;
-
-        @Column(nullable = false)
-        private tipoEvento tipoEvento;
-
-        @Column(nullable = false)
-        private int numeroMaxPartecipanti;
-
-
-
-
-    public Evento() {
-        }
-
-    public Evento(String titolo, LocalDate dataEvento, String descrizione, org.example.entities.tipoEvento tipoEvento, int numeroMaxPartecipanti) {
+    public Evento(String titolo, LocalDate dataEvento, String descrizione, TipoEvento tipoEvento, int numeroMassimoPartecipanti) {
         this.titolo = titolo;
         this.dataEvento = dataEvento;
         this.descrizione = descrizione;
         this.tipoEvento = tipoEvento;
-        this.numeroMaxPartecipanti = numeroMaxPartecipanti;
+        this.numeroMassimoPartecipanti = numeroMassimoPartecipanti;
     }
 
     public long getId() {
@@ -73,20 +63,20 @@ import javax.persistence.*;
         this.descrizione = descrizione;
     }
 
-    public tipoEvento getTipoEvento() {
+    public TipoEvento getTipoEvento() {
         return tipoEvento;
     }
 
-    public void setTipoEvento(tipoEvento tipoEvento) {
+    public void setTipoEvento(TipoEvento tipoEvento) {
         this.tipoEvento = tipoEvento;
     }
 
-    public int getNumeroMaxPartecipanti() {
-        return numeroMaxPartecipanti;
+    public int getNumeroMassimoPartecipanti() {
+        return numeroMassimoPartecipanti;
     }
 
-    public void setNumeroMaxPartecipanti(int numeroMaxPartecipanti) {
-        this.numeroMaxPartecipanti = numeroMaxPartecipanti;
+    public void setNumeroMassimoPartecipanti(int numeroMassimoPartecipanti) {
+        this.numeroMassimoPartecipanti = numeroMassimoPartecipanti;
     }
 
     @Override
@@ -97,7 +87,7 @@ import javax.persistence.*;
                 ", dataEvento=" + dataEvento +
                 ", descrizione='" + descrizione + '\'' +
                 ", tipoEvento=" + tipoEvento +
-                ", numeroMaxPartecipanti=" + numeroMaxPartecipanti +
+                ", numeroMassimoPartecipanti=" + numeroMassimoPartecipanti +
                 '}';
     }
 }
