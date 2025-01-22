@@ -1,41 +1,39 @@
+
 package org.example.entities;
 
-import org.example.enumeration.Sesso;
+import org.example.enumeration.TipoSesso;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "persone")
-
 public class Persona {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
+    @Id
+    @GeneratedValue
     private long id;
-    @Column(nullable = false)
     private String nome;
-    @Column(nullable = false)
     private String cognome;
-    @Column(nullable = false)
+    @Column(unique = true)
     private String email;
-    @Column(nullable = false)
-    private Date data;
+    private LocalDate dataDiNascita;
     @Enumerated(EnumType.STRING)
-    private Sesso Sesso;
+    private TipoSesso sesso;
     @OneToMany(mappedBy = "persona")
     private List<Partecipazione> listaPartecipazioni;
 
-    public Persona() {}
+    public Persona() { }
 
-    public Persona(String nome, String cognome, String email, Date data, org.example.enumeration.Sesso sesso, List<Partecipazione> listaPartecipazioni) {
+    public Persona(String nome, String cognome, String email, LocalDate dataDiNascita, TipoSesso sesso) {
         this.nome = nome;
         this.cognome = cognome;
         this.email = email;
-        this.data = data;
-        Sesso = sesso;
-        this.listaPartecipazioni = listaPartecipazioni;
+        this.dataDiNascita = dataDiNascita;
+        this.sesso = sesso;
+        this.listaPartecipazioni = new ArrayList<Partecipazione>();
     }
 
     public long getId() {
@@ -70,20 +68,20 @@ public class Persona {
         this.email = email;
     }
 
-    public Date getData() {
-        return data;
+    public LocalDate getDataDiNascita() {
+        return dataDiNascita;
     }
 
-    public void setData(Date data) {
-        this.data = data;
+    public void setDataDiNascita(LocalDate dataDiNascita) {
+        this.dataDiNascita = dataDiNascita;
     }
 
-    public Sesso getSesso() {
-        return Sesso;
+    public TipoSesso getSesso() {
+        return sesso;
     }
 
-    public void setSesso(Sesso sesso) {
-        Sesso = sesso;
+    public void setSesso(TipoSesso sesso) {
+        this.sesso = sesso;
     }
 
     public List<Partecipazione> getListaPartecipazioni() {
@@ -101,8 +99,8 @@ public class Persona {
                 ", nome='" + nome + '\'' +
                 ", cognome='" + cognome + '\'' +
                 ", email='" + email + '\'' +
-                ", data=" + data +
-                ", Sesso=" + Sesso +
+                ", dataDiNascita=" + dataDiNascita +
+                ", sesso=" + sesso +
                 ", listaPartecipazioni=" + listaPartecipazioni +
                 '}';
     }

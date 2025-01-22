@@ -12,7 +12,7 @@ import java.util.List;
 public class Evento {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private long id;
     @Column(nullable = false)
     private String titolo;
@@ -22,21 +22,22 @@ public class Evento {
     @Enumerated(EnumType.STRING)
     private TipoEvento tipoEvento;
     private int numeroMassimoPartecipanti;
-
-    @ManyToMany(mappedBy = "listaPartecipanti")
-    private List<Persona> Partecipanti = new ArrayList<Persona>();
-
-
-
+    @ManyToOne
+    @JoinColumn(name = "location_id")
+    private Location location;
+    @OneToMany(mappedBy = "evento")
+    private List<Partecipazione> listaPartecipazioni;
 
     public Evento() {}
 
-    public Evento(String titolo, LocalDate dataEvento, String descrizione, TipoEvento tipoEvento, int numeroMassimoPartecipanti) {
+    public Evento(String titolo, LocalDate dataEvento, String descrizione, TipoEvento tipoEvento, int numeroMassimoPartecipanti, Location location) {
         this.titolo = titolo;
         this.dataEvento = dataEvento;
         this.descrizione = descrizione;
         this.tipoEvento = tipoEvento;
         this.numeroMassimoPartecipanti = numeroMassimoPartecipanti;
+        this.location = location;
+        this.listaPartecipazioni = new ArrayList<Partecipazione>();
     }
 
     public long getId() {
@@ -87,6 +88,22 @@ public class Evento {
         this.numeroMassimoPartecipanti = numeroMassimoPartecipanti;
     }
 
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public List<Partecipazione> getListaPartecipazioni() {
+        return listaPartecipazioni;
+    }
+
+    public void setListaPartecipazioni(List<Partecipazione> listaPartecipazioni) {
+        this.listaPartecipazioni = listaPartecipazioni;
+    }
+
     @Override
     public String toString() {
         return "Evento{" +
@@ -96,6 +113,8 @@ public class Evento {
                 ", descrizione='" + descrizione + '\'' +
                 ", tipoEvento=" + tipoEvento +
                 ", numeroMassimoPartecipanti=" + numeroMassimoPartecipanti +
+                ", location=" + location +
+                ", listaPartecipazioni=" + listaPartecipazioni +
                 '}';
     }
 }

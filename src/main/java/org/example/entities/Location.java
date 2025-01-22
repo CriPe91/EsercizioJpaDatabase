@@ -1,24 +1,25 @@
+
 package org.example.entities;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "locations")
-
 public class Location {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
 
-    @Column(nullable = false)
-    private String name;
-    @Column(nullable = false)
+    @Id
+    @GeneratedValue
+    private long id;
+    private String nome;
     private String citta;
 
-    public Location() {}
+    public Location() { }
 
-    public Location(String name, String citta) {
-        this.name = name;
+    public Location(String nome, String citta) {
+        this.nome = nome;
         this.citta = citta;
     }
 
@@ -30,12 +31,12 @@ public class Location {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNome() {
+        return nome;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getCitta() {
@@ -50,7 +51,7 @@ public class Location {
     public String toString() {
         return "Location{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", nome='" + nome + '\'' +
                 ", citta='" + citta + '\'' +
                 '}';
     }
