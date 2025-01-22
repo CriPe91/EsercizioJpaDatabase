@@ -4,6 +4,8 @@ import org.example.enumeration.TipoEvento;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "eventi")
@@ -20,6 +22,12 @@ public class Evento {
     @Enumerated(EnumType.STRING)
     private TipoEvento tipoEvento;
     private int numeroMassimoPartecipanti;
+
+    @ManyToMany(mappedBy = "listaPartecipanti")
+    private List<Persona> Partecipanti = new ArrayList<Persona>();
+
+
+
 
     public Evento() {}
 

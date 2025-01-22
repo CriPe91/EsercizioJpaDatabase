@@ -25,8 +25,8 @@ public class Main {
         Evento ev = new Evento("Lezione Java", LocalDate.now(), "Corso FS0824B", TipoEvento.PRIVATO, 28);
          eventoDao.save(ev);
 
-        Evento getEv = eventoDao.getByID(1);
-         System.out.println(getEv);
+//        Evento getEv = eventoDao.getByID(1);
+//         System.out.println(getEv);
 
         // eventoDao.delete(getEv);
 
