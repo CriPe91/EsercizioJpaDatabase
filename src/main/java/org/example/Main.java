@@ -6,11 +6,9 @@ import org.example.dao.EventoDAO;
 import org.example.dao.LocationDAO;
 import org.example.dao.PartecipazioneDAO;
 import org.example.dao.PersonaDAO;
-import org.example.entities.Evento;
-import org.example.entities.Location;
-import org.example.entities.Partecipazione;
-import org.example.entities.Persona;
+import org.example.entities.*;
 import org.example.enumeration.TipoEvento;
+import org.example.enumeration.TipoGenere;
 import org.example.enumeration.TipoSesso;
 import org.example.enumeration.TipoStato;
 
@@ -27,7 +25,7 @@ import java.util.Random;
  */
 public class Main {
 
-    private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("GestioneEventi");
+    private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("progettoMavenPersistenza");
     private static EntityManager em = emf.createEntityManager();
 
     public static void main( String[] args ) {
@@ -38,18 +36,20 @@ public class Main {
 
         Faker faker = new Faker(Locale.ITALY);
 
-        //Location l1 = new Location(faker.name().name(), faker.address().city());
-        //locationDao.save(l1);
+        Location l1 = new Location(faker.name().name(), faker.address().city());
+        locationDao.save(l1);
 
-        //Persona p1 = new Persona(faker.name().firstName(), faker.name().lastName(),faker.internet().emailAddress(),LocalDate.of(1980, 10, 25), TipoSesso.F);
-        //personaDao.save(p1);
+        Persona p1 = new Persona(faker.name().firstName(), faker.name().lastName(),faker.internet().emailAddress(),LocalDate.of(1980, 10, 25), TipoSesso.F);
+        personaDao.save(p1);
 
-        //Evento e1 = new Evento("Finale Coppa", LocalDate.of(2025, 1, 25), "Super finale di coppa", TipoEvento.PUBBLICO, 100, locationDao.getByID(1));
-        //eventoDao.save(e1);
+//        Evento e1 = new Evento("Finale Coppa", LocalDate.of(2025, 1, 25), "Super finale di coppa", TipoEvento.PUBBLICO, 100, locationDao.getByID(1));
+//        eventoDao.save(e1);
 
-        //Partecipazione p1 = new Partecipazione(personaDao.getByID(2), eventoDao.getByID(3), TipoStato.CONFERMATA);
+        Partecipazione pers1 = new Partecipazione(personaDao.getByID(2), eventoDao.getByID(3), TipoStato.CONFERMATA);
         //partecipazioneDao.save(p1);
 
+
+        Concerto conc1 = new Concerto("Marracash",LocalDate.of(2025,01,14),"Concerto rap",TipoEvento.PUBBLICO,1000,l1,TipoGenere.POP,true);
     }
 
 
