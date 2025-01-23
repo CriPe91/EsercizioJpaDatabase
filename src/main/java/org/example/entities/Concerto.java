@@ -3,35 +3,34 @@ package org.example.entities;
 import org.example.enumeration.TipoEvento;
 import org.example.enumeration.TipoGenere;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Table;
 import java.time.LocalDate;
 
 @Entity
+@Table(name = "concerti")
+public class Concerto extends Evento {
 
-public class Concerto extends Evento{
-    @Id
-    @GeneratedValue
-    private long id;
     @Enumerated(EnumType.STRING)
     private TipoGenere genere;
-    private boolean InStreaming;
+    private boolean inStriming;
 
-    public Concerto() {}
+    public Concerto() { }
 
-    public Concerto(String titolo, LocalDate dataEvento, String descrizione, TipoEvento tipoEvento, int numeroMassimoPartecipanti, Location location, TipoGenere genere, boolean inStreaming) {
+    public Concerto(String titolo, LocalDate dataEvento, String descrizione, TipoEvento tipoEvento, int numeroMassimoPartecipanti, Location location, TipoGenere genere, boolean inStriming) {
         super(titolo, dataEvento, descrizione, tipoEvento, numeroMassimoPartecipanti, location);
         this.genere = genere;
-        InStreaming = inStreaming;
+        this.inStriming = inStriming;
     }
 
-    @Override
-    public long getId() {
-        return id;
+    public boolean isInStriming() {
+        return inStriming;
     }
 
-    @Override
-    public void setId(long id) {
-        this.id = id;
+    public void setInStriming(boolean inStriming) {
+        this.inStriming = inStriming;
     }
 
     public TipoGenere getGenere() {
@@ -42,20 +41,11 @@ public class Concerto extends Evento{
         this.genere = genere;
     }
 
-    public boolean isInStreaming() {
-        return InStreaming;
-    }
-
-    public void setInStreaming(boolean inStreaming) {
-        InStreaming = inStreaming;
-    }
-
     @Override
     public String toString() {
         return "Concerto{" +
-                "id=" + id +
-                ", genere=" + genere +
-                ", InStreaming=" + InStreaming +
+                "genere=" + genere +
+                ", inStriming=" + inStriming +
                 '}';
     }
 }

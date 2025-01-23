@@ -16,8 +16,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.Random;
+import java.util.Set;
 
 /**
  * Hello world!
@@ -25,7 +27,7 @@ import java.util.Random;
  */
 public class Main {
 
-    private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("progettoMavenPersistenza");
+    private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("GestioneEventi");
     private static EntityManager em = emf.createEntityManager();
 
     public static void main( String[] args ) {
@@ -36,20 +38,30 @@ public class Main {
 
         Faker faker = new Faker(Locale.ITALY);
 
-        Location l1 = new Location(faker.name().name(), faker.address().city());
-        locationDao.save(l1);
+        //Location l1 = new Location(faker.name().name(), faker.address().city());
+        //locationDao.save(l1);
 
-        Persona p1 = new Persona(faker.name().firstName(), faker.name().lastName(),faker.internet().emailAddress(),LocalDate.of(1980, 10, 25), TipoSesso.F);
-        personaDao.save(p1);
+        //Persona p1 = new Persona(faker.name().firstName(), faker.name().lastName(),faker.internet().emailAddress(),LocalDate.of(1980, 10, 25), TipoSesso.F);
+        //personaDao.save(p1);
 
-//        Evento e1 = new Evento("Finale Coppa", LocalDate.of(2025, 1, 25), "Super finale di coppa", TipoEvento.PUBBLICO, 100, locationDao.getByID(1));
-//        eventoDao.save(e1);
+        // Non più funzionante
+        //Evento e1 = new Evento("Finale Coppa", LocalDate.of(2025, 1, 25), "Super finale di coppa", TipoEvento.PUBBLICO, 100, locationDao.getByID(1));
+        //eventoDao.save(e1);
 
-        Partecipazione pers1 = new Partecipazione(personaDao.getByID(2), eventoDao.getByID(3), TipoStato.CONFERMATA);
+        //Evento e1 = new Concerto("Vasco Rossi", LocalDate.of(2025, 1, 28), "Ultimo Concerto", TipoEvento.PUBBLICO, 100, locationDao.getByID(1), TipoGenere.ROCK, false);
+        //eventoDao.save(e1);
+
+        //Evento e2 = new PartitaDiCalcio("Finale Coppa", LocalDate.of(2025, 1, 25), "Super finale di coppa", TipoEvento.PUBBLICO, 100, locationDao.getByID(1), "Real Madrid", "Barcellona", "Real Madrid", 2, 1);
+        //eventoDao.save(e2);
+
+        //Set<Persona> listaAtleti = new HashSet<Persona>();
+        //listaAtleti.add(personaDao.getByID(2));
+        //Evento e3 = new GaraDiAtletica("Gara Nazionale", LocalDate.of(2025,3,10), "Campionato nazionale", TipoEvento.PRIVATO, 100, locationDao.getByID(1), listaAtleti, personaDao.getByID(2) );
+        //eventoDao.save(e3);
+
+        //Partecipazione p1 = new Partecipazione(personaDao.getByID(2), eventoDao.getByID(3), TipoStato.CONFERMATA);
         //partecipazioneDao.save(p1);
 
-
-        Concerto conc1 = new Concerto("Marracash",LocalDate.of(2025,01,14),"Concerto rap",TipoEvento.PUBBLICO,1000,l1,TipoGenere.POP,true);
     }
 
 

@@ -7,8 +7,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@MappedSuperclass
-public class Evento {
+@Entity
+@Table(name = "eventi")
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class Evento {
 
     @Id
     @GeneratedValue

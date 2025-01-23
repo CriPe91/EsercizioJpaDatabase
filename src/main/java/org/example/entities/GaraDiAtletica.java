@@ -1,29 +1,33 @@
+
 package org.example.entities;
 
 import org.example.enumeration.TipoEvento;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Table(name = "gare_di_atletica")
+public class GaraDiAtletica extends Evento {
 
-public class GaraDiAtletica extends Evento{
+    @ManyToMany
+    @JoinTable(name = "gare_atletica_persona",
+            joinColumns = @JoinColumn(name = "gara_id"),
+            inverseJoinColumns = @JoinColumn(name = "atleta_id")
+    )
+    private Set<Persona> atleti;
 
-    private Set<Persona> atleti = new HashSet<>();
-    @OneToOne()
-    @JoinColumn(name = "persona_id")
-    private String Vincitore;
+    @ManyToOne
+    @JoinColumn(name = "vincitore")
+    private Persona vincitore;
 
-    public GaraDiAtletica() {}
+    public GaraDiAtletica() { }
 
-    public GaraDiAtletica(String titolo, LocalDate dataEvento, String descrizione, TipoEvento tipoEvento, int numeroMassimoPartecipanti, Location location, Set<Persona> atleti, String vincitore) {
+    public GaraDiAtletica(String titolo, LocalDate dataEvento, String descrizione, TipoEvento tipoEvento, int numeroMassimoPartecipanti, Location location, Set<Persona> atleti, Persona vincitore) {
         super(titolo, dataEvento, descrizione, tipoEvento, numeroMassimoPartecipanti, location);
         this.atleti = atleti;
-        Vincitore = vincitore;
+        this.vincitore = vincitore;
     }
 
     public Set<Persona> getAtleti() {
@@ -34,19 +38,19 @@ public class GaraDiAtletica extends Evento{
         this.atleti = atleti;
     }
 
-    public String getVincitore() {
-        return Vincitore;
+    public Persona getVincitore() {
+        return vincitore;
     }
 
-    public void setVincitore(String vincitore) {
-        Vincitore = vincitore;
+    public void setVincitore(Persona vincitore) {
+        this.vincitore = vincitore;
     }
 
     @Override
     public String toString() {
         return "GaraDiAtletica{" +
                 "atleti=" + atleti +
-                ", Vincitore='" + Vincitore + '\'' +
+                ", vincitore=" + vincitore +
                 '}';
     }
 }
